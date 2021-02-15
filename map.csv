@@ -1,0 +1,12 @@
+﻿id,visible,version,changeset,timestamp,user,uid,lat,lon,amenity,KSJ2:AdminArea,KSJ2:ADS,KSJ2:PubFacAdmin,name,note,note:ja,source,source_ref,attribution,capacity,fee,operator,parking,opening_hours,phone,wheelchair,tourism,branch,name:en,name:ja,shop,cuisine,highway,addr:city,addr:floor,addr:postcode,addr:province,office,smoking,website
+1420948325,true,1,9193186,2011-09-02T13:46:15Z,watao,393606,35.9418160,136.1959090,kindergarten,福井県鯖江市,新横江1-3-13,民間,新横江保育園,"National-Land Numerical Information (Public Facility) 2006, MLIT Japan",国土数値情報（公共施設データ）平成19年　国土交通省,KSJ2,http://nlftp.mlit.go.jp/ksj/jpgis/datalist/KsjTmplt-P02-v2_0.html,,,,,,,,,,,,,,,,,,,,,,
+2014627728,true,1,13878865,2012-11-15T02:25:18Z,unotecjapan,765307,35.9432940,136.1973340,,,,,文化センター前駐車場,,,Sabae City 2012,,Copyright Sabae City 2012,300,yes,アマノマネジメントサービス㈱,surface,,,,,,,,,,,,,,,,,
+2014668805,true,2,15764250,2013-04-17T16:09:05Z,unotecjapan,765307,35.9434790,136.1989750,public_building,,,,文化センター,,,Sabae City 2012,,Copyright Sabae City 2012,,,,,09:00-22:00; Tu off; Dec 31 off; Jan 1 off,0778-52-7430,yes,,,,,,,,,,,,,,
+2232974462,true,6,15890335,2013-04-28T02:59:44Z,wheelmap_visitor,290680,35.9427550,136.1988640,,,,,めがねミュージアム/めがね会館 (Megane museum / Megane Kaikan),,,,,,,,,,,,yes,museum,,,,,,,,,,,,,
+2240273559,true,2,79466716,2020-01-12T03:53:08Z,soprano1125,618992,35.9433031,136.1947193,,,,,ユース 東鯖江店 (Youth),,,survey,,,,,,,9:30-21:30,,,,東鯖江店 (Youth),Youth,ユース,supermarket,,,,,,,,,
+2240273560,true,4,79466716,2020-01-12T03:53:08Z,soprano1125,618992,35.9433150,136.1945770,restaurant,,,,亀蔵 (Kamezou),,,survey,,,,,,,"We-Mo 11:00-14:30,17:30-22:30; PH Tu 11:00-14:30,17:30-22:30",0778-42-8199,no,,,Kamezou,亀蔵,,japanese,,,,,,,,
+2270843616,true,1,15764252,2013-04-17T16:09:21Z,unotecjapan,765307,35.9433296,136.1956671,,,,,ユース 東鯖江店,,,鯖江市障害者生活支援センター 2012,http://linkdata.org/work/rdf1s137i,鯖江市障害者生活支援センター,,,,,09:30-22:00,0778-51-8936,yes,,,,,supermarket,,,,,,,,,
+2283644605,true,3,99332627,2021-02-15T21:07:01Z,taisukef,698817,35.9428066,136.1961758,restaurant,,,,おふくろ寿司,,,,,,,,,,,0778-53-0296,,,,,,,sushi,,,,,,,,
+2283646146,true,1,15890027,2013-04-28T00:52:41Z,u_kubota,421504,35.9428610,136.1975830,cafe,,,,コスモス,,,,,,,,,,,,,,,,,,,,,,,,,,
+2283665737,true,1,15890290,2013-04-28T02:41:51Z,u_kubota,421504,35.9429360,136.1971480,,,,,文化センター,,,,,,,,,,,,,,,,,,,bus_stop,,,,,,,
+8302469141,true,1,97160960,2021-01-08T10:02:30Z,kristopher tate,9328170,35.9427350,136.1988353,,,,,株式会社jig.jp,,,,,,,,,,,,yes,,,,,,,,鯖江市,8,916-0042,福井県,company,no,https://jig.jp/company

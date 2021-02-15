@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<title>osm2csv</title>
+<script type="module">
+import { CSV } from "https://code4sabae.github.io/js/CSV.js";
+import { downloadZip } from "https://code4sabae.github.io/js/downloadZip.js";
+import { waitDropFiles } from "https://code4sabae.github.io/js/waitDropFiles.js";
+import { downloadTextFile } from "https://code4sabae.github.io/js/downloadTextFile.js";
+import { readAsArrayBufferAsync } from "https://code4sabae.github.io/js/readAsArrayBufferAsync.js";
+
+const parseNodeOSM = (osm) => {
+    const xml = new TextDecoder().decode(osm);
+    const data = [];
+    const dom = new DOMParser().parseFromString(xml, "text/xml");
+    for (const ch of dom.childNodes[0].childNodes) {
+        //console.log(ch);
+        if (ch.nodeName == "node") {
+            const node = {};
+            for (const a of ch.attributes) {
+                node[a.name] = a.value;
+            }
+            for (const n of ch.childNodes) {
+                if (n.nodeName == "#text") {
+                    continue;
+                }
+                if (n.nodeName == "tag") {
+                    const a = n.attributes;
+                    node[a.k.value] = a.v.value;
+                }
+            }
+            data.push(node);
+        }
+    }
+    return data;
+};
+
+const saveCheckboxState = (chk) => {
+    const v = localStorage.getItem("saveCheckboxState." + chk.id);
+    if (v !== null) {
+        chk.checked = v == "true";
+    }
+    chk.addEventListener("change", () => {
+        localStorage.setItem("saveCheckboxState." + chk.id, chk.checked.toString());
+    });
+};
+
+window.onload = async () => {
+    saveCheckboxState(onlynode);
+    saveCheckboxState(onlyhasname);
+
+    for (;;) {
+        divmain.innerHTML = "OSMファイルをドロップしてください";
+        const items = await waitDropFiles(divmain);
+        const files = [];
+        for (const item of items) {
+            if (!item.file.name.endsWith(".osm")) {
+                alert("ファイル形式が違います。");
+                return;
+            }
+            try {
+                const file = item.file;
+                const osm = await readAsArrayBufferAsync(file);
+                const data = parseNodeOSM(osm);
+                const data2 = onlyhasname.checked ? data.filter(d => d.name) : data;
+                const csv = CSV.fromJSON(data2);
+                const scsv = CSV.encode(csv);
+                const fn = file.name.substring(0, file.name.length - 3) + "csv";
+                files.push({ name: fn, data: scsv });
+            } catch (e) {
+                console.log(e);
+                alert("OSMファイルの読み込みに失敗しました。データが正常かご確認ください。");
+                return;
+            }
+        }
+        if (files.length == 1) {
+            downloadTextFile(files[0]);
+        } else {
+            downloadZip("csvs.zip", files);
+        }
+    }
+};
+</script>
+</head>
+<body>
+    
+<div class="jumbotron">
+    <h1 class="display-4">osm2csv</h1>
+    <p class="lead">OSMファイルのノード（点情報）をCSVに変換します</p>
+</div>
+
+<div class="mx-5">
+    <div id="divmain" class="border px-5 mx-auto pt-3 pb-3"></div>
+    <label><input type="checkbox" id="onlynode" checked disabled class="m-3">ノードのみ変換</label>
+    <label><input type="checkbox" id="onlyhasname" checked class="m-3">名前の入っているデータのみ変換</label>
+</div>
+
+<footer class="text-muted">
+  <div class="container my-4 mx-0">
+    <p>Design: <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a></p>
+    <p>App: CC BY <a href="https://fukuno.jig.jp/3115">福野泰介の一日一創</a> by <a href="https://twitter.com/taisukef">@taisukef</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
